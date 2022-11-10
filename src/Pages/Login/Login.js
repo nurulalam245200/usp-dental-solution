@@ -1,7 +1,21 @@
-import React from "react";
+import { GoogleAuthProvider } from "firebase/auth";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import image from "../../assest/login/login.gif";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import { FaGoogle } from "react-icons/fa";
 const Login = () => {
+  const { googleSignUp } = useContext(AuthContext);
+  const googleProvider = new GoogleAuthProvider();
+  const [error, setError] = useState("");
+  const handleGoogleSignUp = () => {
+    googleSignUp(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((e) => setError(e.message));
+  };
   return (
     <div className="hero w-full my-10">
       <div className="hero-content grid gap-20 md:grid-cols-2 flex-col lg:flex-row">
@@ -35,11 +49,12 @@ const Login = () => {
                 required
               />
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
+                <Link href="#" className="label-text-alt link link-hover">
                   Forgot password?
-                </a>
+                </Link>
               </label>
             </div>
+            <p className="text-emerald-600 font-semibold">{error}</p>
             <div className="form-control mt-6">
               <input
                 type="submit"
@@ -47,10 +62,18 @@ const Login = () => {
                 value="Log in"
               />
             </div>
+            <div>
+              <button
+                className="btn btn-primary text-2xl text-white font-semibold w-full"
+                onClick={handleGoogleSignUp}
+              >
+                <FaGoogle className="text-white mr-2"></FaGoogle>Google Sign in
+              </button>
+            </div>
           </form>
           <p className="text-center">
             New to USP Dental Solution ?
-            <Link className="text-emerald-500 font-bold mx-2" to="/register">
+            <Link className="text-emerald-500 font-bold mx-2" to="/signup">
               Sign Up
             </Link>
           </p>

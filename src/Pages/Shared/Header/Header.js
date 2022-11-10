@@ -12,7 +12,7 @@ const Header = () => {
   };
   const menuItems = (
     <>
-      <li>
+      <li className="mr-3">
         <Link className="font-semibold" to="/">
           Home
         </Link>
@@ -34,7 +34,10 @@ const Header = () => {
             </button>
           </>
         ) : (
-          <Link to="/signup">SignUp</Link>
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">SignUp</Link>
+          </>
         )}
       </li>
     </>

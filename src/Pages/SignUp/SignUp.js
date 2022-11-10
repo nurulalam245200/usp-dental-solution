@@ -1,9 +1,13 @@
+import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import image from "../../assest/login/login.gif";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import { FaGoogle } from "react-icons/fa";
+
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, googleSignUp } = useContext(AuthContext);
+  const googleProvider = new GoogleAuthProvider();
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const handleSignUp = (event) => {
@@ -24,6 +28,15 @@ const SignUp = () => {
         setError(error.message);
         console.log(error);
       });
+  };
+
+  const handleGoogleSignUp = () => {
+    googleSignUp(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((e) => setError(e.message));
   };
 
   return (
@@ -79,6 +92,14 @@ const SignUp = () => {
                 className="btn btn-primary text-2xl text-white font-semibold"
                 value="Sign Up"
               />
+            </div>
+            <div>
+              <button
+                className="btn btn-primary text-2xl text-white font-semibold w-full"
+                onClick={handleGoogleSignUp}
+              >
+                <FaGoogle className="text-white mr-2"></FaGoogle>Google Sign in
+              </button>
             </div>
           </form>
           <p className="text-center">
