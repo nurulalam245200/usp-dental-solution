@@ -16,9 +16,11 @@ const Header = () => {
         <Link className="font-semibold" to="/">
           Home
         </Link>
-        <Link className="font-semibold" to="/service">
+        <Link className="font-semibold" to="/services">
           Service
         </Link>
+
+        <Link to="/blog">Blog</Link>
         {user?.email ? (
           <>
             <Link className="font-semibold" to="/myreview">
