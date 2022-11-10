@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../../assest/logo.svg";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
@@ -86,11 +87,18 @@ const Header = () => {
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
       <div className="navbar-end">
-        <Link
-          title="Number: 018888888999"
-          className="btn btn-outline btn-warning"
-        >
-          Doctor's Appointment
+        <Link>
+          {user?.photoURL ? (
+            <img
+              className="mr-2 rounded-full"
+              title={user?.displayName}
+              style={{ height: "30px" }}
+              src={user?.photoURL}
+              alt=""
+            ></img>
+          ) : (
+            <FaUser></FaUser>
+          )}
         </Link>
       </div>
     </div>

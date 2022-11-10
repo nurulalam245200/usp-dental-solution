@@ -51,6 +51,8 @@ const ServiceDeatils = () => {
       .catch((error) => console.log(error));
   };
 
+  // show in table
+
   return (
     // details show work
     <div className="grid md:grid-cols-1 lg:grid-cols-2">

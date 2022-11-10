@@ -6,7 +6,8 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
 
 const SignUp = () => {
-  const { createUser, googleSignUp } = useContext(AuthContext);
+  const { createUser, googleSignUp, upadateUserProfile } =
+    useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -15,12 +16,14 @@ const SignUp = () => {
     const form = event.target;
     const name = form.name.value;
     const email = form.email.value;
+    const photoURL = form.photoURL.value;
     const password = form.password.value;
 
     createUser(email, password)
       .then((result) => {
         const user = result.user;
         console.log(user);
+        handleUpdateUserProfile(name, photoURL);
         navigate("/login");
         setError("");
       })
@@ -37,6 +40,18 @@ const SignUp = () => {
         console.log(user);
       })
       .catch((e) => setError(e.message));
+  };
+
+  const handleUpdateUserProfile = (name, photoURL) => {
+    const userInfo = {
+      displayName: name,
+      photoURL: photoURL,
+    };
+    upadateUserProfile(userInfo)
+      .then(() => {})
+      .catch((e) => {
+        setError(e.message);
+      });
   };
 
   return (
@@ -56,6 +71,17 @@ const SignUp = () => {
                 type="text"
                 placeholder="Your Name"
                 name="name"
+                className="input input-bordered"
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Photo URL</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Your Photo URL"
+                name="photoURL"
                 className="input input-bordered"
               />
             </div>
