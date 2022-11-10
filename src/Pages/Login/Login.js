@@ -1,13 +1,34 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import image from "../../assest/login/login.gif";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
 const Login = () => {
-  const { googleSignUp } = useContext(AuthContext);
+  const { userLogIn, googleSignUp } = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const [error, setError] = useState("");
+
+  const handleLogIn = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    userLogIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
   const handleGoogleSignUp = () => {
     googleSignUp(googleProvider)
       .then((result) => {
@@ -24,7 +45,7 @@ const Login = () => {
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 py-20">
           <h1 className="text-5xl font-bold text-center">Login now</h1>
-          <form className="card-body">
+          <form onSubmit={handleLogIn} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>

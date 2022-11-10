@@ -20,7 +20,9 @@ const Header = () => {
           Service
         </Link>
 
-        <Link to="/blog">Blog</Link>
+        <Link className="font-semibold" to="/blog">
+          Blog
+        </Link>
         {user?.email ? (
           <>
             <Link className="font-semibold" to="/myreview">
@@ -29,14 +31,21 @@ const Header = () => {
             <Link className="font-semibold" to="/addService">
               Add Service
             </Link>
-            <button onClick={handleLogOut} className="btn btn-ghost">
+            <button
+              onClick={handleLogOut}
+              className="btn btn-ghost font-semibold"
+            >
               LogOut
             </button>
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">SignUp</Link>
+            <Link className="font-semibold" to="/login">
+              Login
+            </Link>
+            <Link className="font-semibold" to="/signup">
+              SignUp
+            </Link>
           </>
         )}
       </li>
