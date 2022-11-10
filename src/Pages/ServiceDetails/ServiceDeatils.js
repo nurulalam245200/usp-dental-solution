@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const ServiceDeatils = () => {
+  const { user } = useContext(AuthContext);
   const data = useLoaderData();
   const { _id, img, title, price, details } = data;
   return (
@@ -17,11 +19,6 @@ const ServiceDeatils = () => {
             Price: ${price}
           </p>
           <p className="mt-3">{details}</p>
-          <div className="card-actions justify-end">
-            <Link to={`/services/${_id}`}>
-              <button className="btn btn-primary">View Details</button>
-            </Link>
-          </div>
         </div>
       </div>
 
@@ -104,6 +101,7 @@ const ServiceDeatils = () => {
             <input
               name="email"
               type="text"
+              defaultValue={user?.email}
               placeholder="Email"
               readOnly
               className="input input-ghost input-bordered w-full "

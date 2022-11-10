@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import image from "../../assest/login/login.gif";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 const SignUp = () => {
   const { createUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   const handleSignUp = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -17,8 +18,10 @@ const SignUp = () => {
         const user = result.user;
         console.log(user);
         navigate("/login");
+        setError("");
       })
       .catch((error) => {
+        setError(error.message);
         console.log(error);
       });
   };
@@ -67,6 +70,9 @@ const SignUp = () => {
                 required
               />
             </div>
+
+            <p className="text-emerald-600 font-semibold">{error}</p>
+
             <div className="form-control mt-6">
               <input
                 type="submit"
