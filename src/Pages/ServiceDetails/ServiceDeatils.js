@@ -1,11 +1,56 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const ServiceDeatils = () => {
   const { user } = useContext(AuthContext);
   const data = useLoaderData();
+  const [reviews, setReviews] = useState([]);
   const { _id, img, title, price, details } = data;
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
+  }, [user?.email]);
+
+  const handleReviews = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = `${form.firstName.value} ${form.lastName.value}`;
+    const phone = form.phone.value;
+    const email = user?.email || "unregister";
+    const image = user?.photo_URL;
+    const reviewMessage = form.reviewMessage.value;
+    const reviews = {
+      service: _id,
+      serviceName: title,
+      price: price,
+      img: image,
+      coustomerName: name,
+      phone: phone,
+      email: email,
+      reviewMessage: reviewMessage,
+    };
+
+    fetch("http://localhost:5000/reviews", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(reviews),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          alert("Order Placed Successfully!!!");
+          form.reset();
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     // details show work
     <div className="grid md:grid-cols-1 lg:grid-cols-2">
@@ -25,58 +70,25 @@ const ServiceDeatils = () => {
       {/* review show work  */}
       <div>
         <div>
+          <h1 className="text-3xl font-bold text-emerald-600">All Reviews</h1>
           <div className="overflow-x-auto w-full">
             <table className="table w-full">
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Favorite Color</th>
+                  <th>Phone</th>
+                  <th>Review Message</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <th>
-                    <label>
-                      <input type="checkbox" className="checkbox" />
-                    </label>
-                  </th>
-                  <td>
-                    <div className="flex items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src="/tailwind-css-component-profile-2@56w.png"
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">Hart Hagerty</div>
-                        <div className="text-sm opacity-50">United States</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    Zemlak, Daniel and Leannon
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      Desktop Support Technician
-                    </span>
-                  </td>
-                  <td>Purple</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
-                  </th>
-                </tr>
-              </tbody>
+              <tbody></tbody>
             </table>
           </div>
         </div>
 
         {/* review input section  */}
-        <form>
+        <form onSubmit={handleReviews}>
           <h2 className="text-4xl">Treatment : {title}</h2>
           <h4 className="text-4xl">Price :&{price}</h4>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
@@ -108,11 +120,11 @@ const ServiceDeatils = () => {
             />
           </div>
           <textarea
-            name="message"
+            name="reviewMessage"
             className="textarea textarea-bordered h-24 my-4 w-full"
-            placeholder="Your Message"
+            placeholder="Your Review"
           ></textarea>
-          <input type="submit" className="btn my-5" value="Place To Order" />
+          <input type="submit" className="btn my-5" value="Give Review" />
         </form>
       </div>
     </div>
