@@ -2,8 +2,9 @@ import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const MyReviewsRow = ({ rview, handleDelete }) => {
-  const { img, serviceName, reviewMessage, reviewerName, phone, _id } = rview;
+const MyReviewsRow = ({ rview, handleDelete, handleReviewUpdate }) => {
+  const { img, serviceName, reviewMessage, reviewerName, phone, _id, service } =
+    rview;
 
   return (
     <tr>
@@ -31,8 +32,8 @@ const MyReviewsRow = ({ rview, handleDelete }) => {
       <td>{reviewMessage}</td>
 
       <th>
-        <Link to="/myreview">
-          <button className="btn btn-ghost btn-xs">
+        <Link to={`/updatereview/${service}`}>
+          <button onClick={handleReviewUpdate} className="btn btn-ghost btn-xs">
             <FaEdit className="mr-2"></FaEdit>Edit Review
           </button>
         </Link>

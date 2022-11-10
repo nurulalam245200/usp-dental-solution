@@ -5,6 +5,7 @@ import MyReviewsRow from "./MyReviewsRow";
 const MyReview = () => {
   const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
+
   // get for show reviews
   useEffect(() => {
     fetch(`http://localhost:5000/reviews?email=${user?.email}`)
@@ -24,7 +25,7 @@ const MyReview = () => {
         .then((data) => {
           if (data.deletedCount > 0) {
             alert("Delete Order Successfully!!");
-            const remaining = reviews.filter((odr) => odr._id !== id);
+            const remaining = reviews.filter((rview) => rview._id !== id);
             setReviews(remaining);
           }
           console.log(data);

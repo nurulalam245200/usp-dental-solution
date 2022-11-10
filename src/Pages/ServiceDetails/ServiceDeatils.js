@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import ReviewsRow from "../Reviews/ReviewsRow";
+import "react-photo-view/dist/react-photo-view.css";
 
 const ServiceDeatils = () => {
   const { user } = useContext(AuthContext);
@@ -65,20 +67,30 @@ const ServiceDeatils = () => {
 
   return (
     // details show work
-    <div className="grid md:grid-cols-1 lg:grid-cols-2">
-      <div className="card card-compact w-96 bg-base-100 shadow-xl">
-        <figure>
-          <img src={img} alt="" />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{title}</h2>
-          <p className="text-2xl font-semibold text-orange-600">
-            Price: ${price}
-          </p>
-          <p className="mt-3">{details}</p>
-        </div>
-      </div>
+    // <PhotoProvider>
+    //   <PhotoView src="/1.jpg">
+    //     <img src="/1-thumbnail.jpg" alt="" />
+    //   </PhotoView>
+    // </PhotoProvider>
 
+    <div className="grid md:grid-cols-1 lg:grid-cols-2">
+      <PhotoProvider>
+        <div className="card card-compact w-96 bg-base-100 shadow-xl">
+          <PhotoView src={img}>
+            <figure>
+              <img src={img} alt="" />
+            </figure>
+          </PhotoView>
+
+          <div className="card-body">
+            <h2 className="card-title">{title}</h2>
+            <p className="text-2xl font-semibold text-orange-600">
+              Price: ${price}
+            </p>
+            <p className="mt-3">{details}</p>
+          </div>
+        </div>
+      </PhotoProvider>
       {/* review show work  */}
       <div>
         <div>

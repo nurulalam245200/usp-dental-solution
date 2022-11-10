@@ -1,3 +1,4 @@
+import { PhotoProvider } from "react-photo-view";
 import { RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
