@@ -1,10 +1,19 @@
 import React from "react";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const ReviewsRow = ({ rview }) => {
-  const { img, serviceName, reviewMessage, reviewerName, phone } = rview;
+const MyReviewsRow = ({ rview, handleDelete }) => {
+  const { img, serviceName, reviewMessage, reviewerName, phone, _id } = rview;
+
   return (
     <tr>
+      <th>
+        <label>
+          <button onClick={() => handleDelete(_id)} className="btn btn-ghost">
+            <FaTrash></FaTrash>
+          </button>
+        </label>
+      </th>
       <td>
         <div className="flex items-center space-x-3">
           <div className="avatar">
@@ -20,13 +29,16 @@ const ReviewsRow = ({ rview }) => {
       </td>
       <td>{serviceName}</td>
       <td>{reviewMessage}</td>
+
       <th>
         <Link to="/myreview">
-          <button className="btn btn-ghost btn-xs">Review details</button>
+          <button className="btn btn-ghost btn-xs">
+            <FaEdit className="mr-2"></FaEdit>Edit Review
+          </button>
         </Link>
       </th>
     </tr>
   );
 };
 
-export default ReviewsRow;
+export default MyReviewsRow;

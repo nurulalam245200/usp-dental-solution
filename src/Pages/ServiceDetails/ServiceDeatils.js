@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import ReviewsRow from "../Reviews/ReviewsRow";
 
 const ServiceDeatils = () => {
   const { user } = useContext(AuthContext);
   const data = useLoaderData();
   const [reviews, setReviews] = useState([]);
+
   const { _id, img, title, price, details } = data;
 
   useEffect(() => {
@@ -20,14 +22,14 @@ const ServiceDeatils = () => {
     const name = `${form.firstName.value} ${form.lastName.value}`;
     const phone = form.phone.value;
     const email = user?.email || "unregister";
-    const image = user?.photo_URL;
+    const image = user?.photoURL;
     const reviewMessage = form.reviewMessage.value;
     const reviews = {
       service: _id,
       serviceName: title,
       price: price,
       img: image,
-      coustomerName: name,
+      reviewerName: name,
       phone: phone,
       email: email,
       reviewMessage: reviewMessage,
@@ -45,13 +47,21 @@ const ServiceDeatils = () => {
         console.log(data);
         if (data.acknowledged) {
           alert("Order Placed Successfully!!!");
+
           form.reset();
         }
       })
       .catch((error) => console.log(error));
   };
 
-  // show in table
+  //
+
+  // get for show reviews
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
+  }, [user?.email]);
 
   return (
     // details show work
@@ -78,13 +88,16 @@ const ServiceDeatils = () => {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
+                  <th>Service name</th>
                   <th>Review Message</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                {reviews.map((rview) => (
+                  <ReviewsRow key={rview._id} rview={rview}></ReviewsRow>
+                ))}
+              </tbody>
             </table>
           </div>
         </div>
