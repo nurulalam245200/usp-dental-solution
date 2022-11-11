@@ -15,12 +15,14 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
   const [error, setError] = useState("");
 
+  //login handle button
   const handleLogIn = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
 
+    //user login
     userLogIn(email, password)
       .then((result) => {
         const user = result.user;
@@ -33,12 +35,13 @@ const Login = () => {
       });
   };
 
+  //google sign up
   const handleGoogleSignUp = () => {
     googleSignUp(googleProvider)
       .then((result) => {
         const user = result.user;
         toast("Google SignUp Successfully!!");
-        navigate("/");
+        navigate(from, { replace: true });
         console.log(user);
       })
       .catch((e) => setError(e.message));

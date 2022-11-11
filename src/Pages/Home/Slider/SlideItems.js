@@ -7,14 +7,7 @@ const SlideItems = ({ slide }) => {
       <div className="carousel-img">
         <img src={image} alt="" className="w-full rounded-xl" />
       </div>
-      <div className="absolute flex justify-end transform -translate-y-1/2 left-24 top-1/4">
-        {/* <h1 className="text-6xl text-white font-bold">
-          Our Treatment <br />
-          For Your Happiness
-          <br />
-          For Comportabllity
-        </h1> */}
-      </div>
+      <div className="absolute flex justify-end transform -translate-y-1/2 left-24 top-1/4"></div>
       <div className="absolute flex justify-end w-2/5 transform -translate-y-1/2 left-24 top-1/2">
         <p className="text-xl mt-5 text-center font-semibold text-white">
           We alwasy with you and we can treat world class level. Please Don't be

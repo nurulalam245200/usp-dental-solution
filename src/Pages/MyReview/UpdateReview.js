@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const UpdateReview = () => {

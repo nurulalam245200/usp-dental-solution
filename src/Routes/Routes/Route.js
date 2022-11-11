@@ -1,3 +1,4 @@
+import { FaSadCry } from "react-icons/fa";
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
 import AddService from "../../Pages/AddService/AddService";
@@ -72,9 +73,21 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
       {
         path: "/blog",
         element: <Blog></Blog>,
+      },
+      {
+        path: "*",
+        element: (
+          <div className="mt-10 mb-10 w-3/4 mx-auto">
+            <FaSadCry className="text-7xl text-center text-red-400"></FaSadCry>
+            <p className="text-7xl text-emerald-600 text-center">
+              This is Not Our page
+            </p>
+          </div>
+        ),
       },
     ],
   },

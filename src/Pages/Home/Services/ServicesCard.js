@@ -19,7 +19,7 @@ const ServicesCard = ({ service }) => {
           </p>
           <p className="mt-3">
             {details.length > 100 ? (
-              <>{details.slice(0, 190) + "..."}</>
+              <>{details.slice(0, 100) + "..."}</>
             ) : (
               <>{details}</>
             )}

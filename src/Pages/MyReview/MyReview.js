@@ -8,7 +8,8 @@ const MyReview = () => {
   const [reviews, setReviews] = useState([]);
   const [sortReview, setSortReview] = useState([]);
 
-  //get date sort fuction
+  //get date sort function
+
   useEffect(() => {
     const sort = reviews.sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -17,6 +18,7 @@ const MyReview = () => {
   }, [reviews]);
 
   // get for show reviews
+
   useEffect(() => {
     fetch(
       `https://usp-dantal-solution-server.vercel.app/reviews?email=${user?.email}`

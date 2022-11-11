@@ -21,6 +21,8 @@ const Home = () => {
       </Helmet>
       <Slider></Slider>
       <About></About>
+
+      {/* home service section  */}
       <div className="mx-10">
         <div className="text-center mb-4">
           <p className="text-2xl font-bold text-emerald-500">Services</p>
