@@ -33,6 +33,7 @@ const Login = () => {
     googleSignUp(googleProvider)
       .then((result) => {
         const user = result.user;
+        navigate("/");
         console.log(user);
       })
       .catch((e) => setError(e.message));

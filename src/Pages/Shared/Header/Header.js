@@ -29,7 +29,7 @@ const Header = () => {
             <Link className="font-semibold" to="/myreview">
               My Review
             </Link>
-            <Link className="font-semibold" to="/addService">
+            <Link className="font-semibold" to="/addservice">
               Add Service
             </Link>
             <button

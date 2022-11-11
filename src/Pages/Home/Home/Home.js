@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import Blog from "../../Blog/Blog";
 import About from "../About/About";
 import ServicesCard from "../Services/ServicesCard";
 import Slider from "../Slider/Slider";
+// import {Helmet} from "react-helmet-async";
 
 const Home = () => {
   const [services, setServices] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/homeservices")
+    fetch("https://usp-dantal-solution-server.vercel.app/homeservices")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
   return (
-    <div>
+    <div className="mt-5 mb-5">
+      <Helmet>
+        <title>Home - {`Usp Dental`}</title>
+      </Helmet>
       <Slider></Slider>
       <About></About>
       <div className="mx-10">
@@ -37,6 +43,7 @@ const Home = () => {
           View All
         </Link>
       </div>
+      <Blog></Blog>
     </div>
   );
 };

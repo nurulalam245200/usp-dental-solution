@@ -1,22 +1,20 @@
 import React from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const UpdateReview = () => {
-  const data = useLoaderData();
-  const { service } = data;
-  console.log(service);
+  const id = useParams();
+
   const navigate = useNavigate();
 
   const handleReviewUpdate = (event) => {
     event.preventDefault();
-    const message = event.target.message.value;
+
     const reviewMessage = {
-      message,
-      service: service,
+      reviewMessage: event.target.message.value,
     };
 
-    fetch(`http://localhost:5000/reviews/${service}`, {
+    fetch(`https://usp-dantal-solution-server.vercel.app/reviews/${id.id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

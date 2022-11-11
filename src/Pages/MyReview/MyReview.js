@@ -1,14 +1,26 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import MyReviewsRow from "./MyReviewsRow";
 
 const MyReview = () => {
   const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
+  const [sortReview, setSortReview] = useState([]);
+
+  //get date sort fuction
+  useEffect(() => {
+    const sort = reviews.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    setSortReview(sort);
+  }, [reviews]);
 
   // get for show reviews
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+    fetch(
+      `https://usp-dantal-solution-server.vercel.app/reviews?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, [user?.email]);
@@ -18,7 +30,7 @@ const MyReview = () => {
   const handleDelete = (id) => {
     const proceed = window.confirm("Are you sure to delete this Order");
     if (proceed) {
-      fetch(`http://localhost:5000/reviews/${id}`, {
+      fetch(`https://usp-dantal-solution-server.vercel.app/reviews/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -28,13 +40,15 @@ const MyReview = () => {
             const remaining = reviews.filter((rview) => rview._id !== id);
             setReviews(remaining);
           }
-          console.log(data);
         });
     }
   };
 
   return (
     <div>
+      <Helmet>
+        <title>Blog |{`Usp Dental`}</title>
+      </Helmet>
       <div>
         <h1 className="text-3xl font-bold text-emerald-600">All Reviews</h1>
         <div className="overflow-x-auto w-full">
@@ -49,7 +63,7 @@ const MyReview = () => {
               </tr>
             </thead>
             <tbody>
-              {reviews.map((rview) => (
+              {sortReview.map((rview) => (
                 <MyReviewsRow
                   key={rview._id}
                   rview={rview}

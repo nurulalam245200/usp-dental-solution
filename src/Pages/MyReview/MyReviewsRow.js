@@ -3,8 +3,15 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const MyReviewsRow = ({ rview, handleDelete, handleReviewUpdate }) => {
-  const { img, serviceName, reviewMessage, reviewerName, phone, _id, service } =
-    rview;
+  const {
+    img,
+    serviceName,
+    reviewMessage,
+    reviewerName,
+    phone,
+    _id,
+    service_id,
+  } = rview;
 
   return (
     <tr>
@@ -32,7 +39,7 @@ const MyReviewsRow = ({ rview, handleDelete, handleReviewUpdate }) => {
       <td>{reviewMessage}</td>
 
       <th>
-        <Link to={`/updatereview/${service}`}>
+        <Link to={`/updatereview/${service_id}`}>
           <button onClick={handleReviewUpdate} className="btn btn-ghost btn-xs">
             <FaEdit className="mr-2"></FaEdit>Edit Review
           </button>

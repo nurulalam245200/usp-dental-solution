@@ -37,7 +37,7 @@ const SignUp = () => {
     googleSignUp(googleProvider)
       .then((result) => {
         const user = result.user;
-        navigate({ replace: true });
+        navigate("/");
         console.log(user);
       })
       .catch((e) => setError(e.message));

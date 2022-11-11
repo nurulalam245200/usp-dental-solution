@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../Layout/Main";
+import AddService from "../../Pages/AddService/AddService";
 import Blog from "../../Pages/Blog/Blog";
 import Home from "../../Pages/Home/Home/Home";
 import Services from "../../Pages/Home/Services/Services";
@@ -39,7 +40,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/services/${params.id}`),
+          fetch(
+            `https://usp-dantal-solution-server.vercel.app/services/${params.id}`
+          ),
       },
       {
         path: "/myreview",
@@ -51,9 +54,23 @@ export const router = createBrowserRouter([
       },
       {
         path: "/updatereview/:id",
-        element: <UpdateReview></UpdateReview>,
+        element: (
+          <PrivateRoute>
+            <UpdateReview></UpdateReview>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/reviews/${params.id}`),
+          fetch(
+            `https://usp-dantal-solution-server.vercel.app/reviews/${params.id}`
+          ),
+      },
+      {
+        path: "/addservice",
+        element: (
+          <PrivateRoute>
+            <AddService></AddService>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/blog",

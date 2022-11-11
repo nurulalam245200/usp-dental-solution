@@ -4,19 +4,34 @@ import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import ReviewsRow from "../Reviews/ReviewsRow";
 import "react-photo-view/dist/react-photo-view.css";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ServiceDeatils = () => {
   const { user } = useContext(AuthContext);
   const data = useLoaderData();
   const [reviews, setReviews] = useState([]);
 
-  const { _id, img, title, price, details } = data;
+  const [sortReview, setSortReview] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+    const sort = reviews.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    console.log("object", sort);
+    setSortReview(sort);
+  }, [reviews]);
+
+  const [updateReview, setUpdateReview] = useState(false);
+
+  const { img, title, price, details, service_id } = data;
+
+  useEffect(() => {
+    fetch(
+      `https://usp-dantal-solution-server.vercel.app/reviews?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setReviews(data));
-  }, [user?.email]);
+  }, [user?.email, updateReview]);
 
   const handleReviews = (event) => {
     event.preventDefault();
@@ -27,7 +42,7 @@ const ServiceDeatils = () => {
     const image = user?.photoURL;
     const reviewMessage = form.reviewMessage.value;
     const reviews = {
-      service: _id,
+      service_id: service_id,
       serviceName: title,
       price: price,
       img: image,
@@ -35,9 +50,10 @@ const ServiceDeatils = () => {
       phone: phone,
       email: email,
       reviewMessage: reviewMessage,
+      createdAt: new Date(),
     };
 
-    fetch("http://localhost:5000/reviews", {
+    fetch("https://usp-dantal-solution-server.vercel.app/reviews", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -48,8 +64,8 @@ const ServiceDeatils = () => {
       .then((data) => {
         console.log(data);
         if (data.acknowledged) {
-          alert("Order Placed Successfully!!!");
-
+          toast("Review Add Successfully!!!");
+          setUpdateReview(!updateReview);
           form.reset();
         }
       })
@@ -60,7 +76,9 @@ const ServiceDeatils = () => {
 
   // get for show reviews
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+    fetch(
+      `https://usp-dantal-solution-server.vercel.app/reviews?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, [user?.email]);
@@ -106,7 +124,7 @@ const ServiceDeatils = () => {
                 </tr>
               </thead>
               <tbody>
-                {reviews.map((rview) => (
+                {sortReview.map((rview) => (
                   <ReviewsRow key={rview._id} rview={rview}></ReviewsRow>
                 ))}
               </tbody>

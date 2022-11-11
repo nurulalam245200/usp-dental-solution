@@ -8,12 +8,12 @@ const SlideItems = ({ slide }) => {
         <img src={image} alt="" className="w-full rounded-xl" />
       </div>
       <div className="absolute flex justify-end transform -translate-y-1/2 left-24 top-1/4">
-        <h1 className="text-6xl text-white font-bold">
+        {/* <h1 className="text-6xl text-white font-bold">
           Our Treatment <br />
           For Your Happiness
           <br />
           For Comportabllity
-        </h1>
+        </h1> */}
       </div>
       <div className="absolute flex justify-end w-2/5 transform -translate-y-1/2 left-24 top-1/2">
         <p className="text-xl mt-5 text-center font-semibold text-white">
