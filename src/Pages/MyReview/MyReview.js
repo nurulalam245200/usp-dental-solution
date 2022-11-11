@@ -47,7 +47,7 @@ const MyReview = () => {
   return (
     <div>
       <Helmet>
-        <title>Blog |{`Usp Dental`}</title>
+        <title>My Reviews |{`Usp Dental`}</title>
       </Helmet>
       <div>
         <h1 className="text-3xl font-bold text-emerald-600">All Reviews</h1>

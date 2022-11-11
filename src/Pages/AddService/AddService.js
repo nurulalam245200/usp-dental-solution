@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const AddService = () => {
@@ -28,7 +29,6 @@ const AddService = () => {
         console.log(data);
         if (data.acknowledged) {
           toast("Add Successfully");
-
           form.reset();
         }
       })
@@ -37,6 +37,9 @@ const AddService = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Add Service |{`Usp Dental`}</title>
+      </Helmet>
       <form onSubmit={handleServiceAdd}>
         <h2 className="text-4xl">Add Service</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">

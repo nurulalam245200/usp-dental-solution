@@ -6,6 +6,7 @@ import ReviewsRow from "../Reviews/ReviewsRow";
 import "react-photo-view/dist/react-photo-view.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 const ServiceDeatils = () => {
   const { user } = useContext(AuthContext);
   const data = useLoaderData();
@@ -84,14 +85,10 @@ const ServiceDeatils = () => {
   }, [user?.email]);
 
   return (
-    // details show work
-    // <PhotoProvider>
-    //   <PhotoView src="/1.jpg">
-    //     <img src="/1-thumbnail.jpg" alt="" />
-    //   </PhotoView>
-    // </PhotoProvider>
-
-    <div className="grid md:grid-cols-1 lg:grid-cols-2">
+    <div className="grid md:grid-cols-1 lg:grid-cols-2 mt-5 mb-5">
+      <Helmet>
+        <title>My ServiceDetails |{`Usp Dental`}</title>
+      </Helmet>
       <PhotoProvider>
         <div className="card card-compact w-96 bg-base-100 shadow-xl">
           <PhotoView src={img}>

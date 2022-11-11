@@ -4,6 +4,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import image from "../../assest/login/login.gif";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet-async";
 const Login = () => {
   const { userLogIn, googleSignUp } = useContext(AuthContext);
   const googleProvider = new GoogleAuthProvider();
@@ -23,6 +26,7 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         navigate(from, { replace: true });
+        toast("Log In Successfully!!");
       })
       .catch((error) => {
         setError(error.message);
@@ -33,6 +37,7 @@ const Login = () => {
     googleSignUp(googleProvider)
       .then((result) => {
         const user = result.user;
+        toast("Google SignUp Successfully!!");
         navigate("/");
         console.log(user);
       })
@@ -40,6 +45,9 @@ const Login = () => {
   };
   return (
     <div className="hero w-full my-10">
+      <Helmet>
+        <title>Log in |{`Usp Dental`}</title>
+      </Helmet>
       <div className="hero-content grid gap-20 md:grid-cols-2 flex-col lg:flex-row">
         <div className="text-center lg:text-left">
           <img className="w-3/4" src={image} alt="" />
