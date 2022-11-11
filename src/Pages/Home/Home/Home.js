@@ -9,6 +9,7 @@ import Slider from "../Slider/Slider";
 
 const Home = () => {
   const [services, setServices] = useState([]);
+
   useEffect(() => {
     fetch("https://usp-dantal-solution-server.vercel.app/homeservices")
       .then((res) => res.json())

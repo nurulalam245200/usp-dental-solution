@@ -7,9 +7,5 @@
   width: 100%;
   height: 100%;
   display: inline-block;
-  background: linear-gradient(
-    to right,
-    #219766 0%,
-    rgba(24, 168, 79, 0) 100%
-  ); /* FF3.6+ */
+  background: linear-gradient(to right, #219766 0%, rgba(24, 168, 79, 0) 100%);
 }
